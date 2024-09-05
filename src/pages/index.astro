@@ -4,7 +4,7 @@ import { siteConfig } from '../config/site-config'
 import MainLayout from '../layouts/MainLayout.astro'
 import TypeBlogPost from '../components/TypeBlogPost.astro'
 
-const blogPosts = await getCollection('blog')
+const blogPosts = await getCollection('blog',(post) => post?.data?.isDraft === false)
 ---
 
 <MainLayout title='Blog de jhonny'>
@@ -13,6 +13,9 @@ const blogPosts = await getCollection('blog')
         <h1 class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">
 			{siteConfig.title}
 		</h1>
+		    <br/>
+		    <a class='mr-2' class="text-blue-500  hover:underline" href="blog/1">Blog paginado</a>
+		    <a class='mr-2' class="text-blue-500  hover:underline" href="/authors">Autores</a>
         <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
                 {blogPosts?.map((post:any) => <TypeBlogPost post={post}/>)}
         </div>
